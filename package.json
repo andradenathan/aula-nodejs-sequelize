@@ -1,0 +1,23 @@
+{
+  "name": "aula-nodejs-sequelize",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node-dev --no-notify src/app.js",
+    "migrate": "node src/database/migrate.js",
+    "seed": "node src/database/seeders/Seeder",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.10.0",
+    "faker": "^5.4.0",
+    "node-dev": "^6.4.0",
+    "sequelize": "^6.3.5",
+    "sqlite3": "^5.0.0"
+  }
+}
