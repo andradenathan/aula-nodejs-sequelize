@@ -14,7 +14,8 @@ const Event = sequelize.define('Event', {
 
 	rate: {
 		type: DataTypes.INTEGER,
-		allowNull: true
+		allowNull: true,
+		defaultValue: 0
 	},
 
 	price: {

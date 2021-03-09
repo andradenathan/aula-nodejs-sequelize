@@ -21,12 +21,12 @@ const getUserEvents = async(req, res) => {
 
 const listUsersByAge = async(req, res) => {
 	try {
-		const users = await User.findAll({order:
+		const getUsers = await User.findAll({order:
 		[
 			['date_of_birth', 'ASC']
 		]
 	});
-		const ages = users.map((user) => {
+		const users = getUsers.map((user) => {
 			return {
 				'id': user.id,
 				'name': user.name,
@@ -34,7 +34,7 @@ const listUsersByAge = async(req, res) => {
 				'age': calculateAge(user.date_of_birth),
 			}
 		});
-		return res.status(200).json({'ages': ages});
+		return res.status(200).json({'users': users});
 	} catch(err) {
 		return res.status(500).json(err + "!");
 	}

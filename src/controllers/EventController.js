@@ -1,7 +1,6 @@
 const Event = require('../models/Event');
-const User = require('../models/User');
 const {Op} = require('sequelize');
-
+const {validationResult} = require('express-validator');
 
 const searchEventByTitle = async(req, res) => {
 	const {title} = req.body;
@@ -62,26 +61,13 @@ const show = async(req, res) => {
 }
 
 const create = async(req, res) => {
-	const eventData = {
-		title: req.body.title,
-		description: req.body.description,
-		price: req.body.price,
-		address: req.body.address,
-		starts_at: req.body.starts_at,
-		ends_at: req.body.ends_at,
-		contact_number: req.body.contact_number,
-		latitude: req.body.latitude,
-		longitude: req.body.longitude,
-		hostId: req.body.hostId
-	}
-
 	try {
-		const event = await Event.create(eventData);
+		validationResult(req).throw();
+		const event = await Event.create(req.body);
 		return res.status(201).json({event});	
 	} catch(err) {
-		return res.status(500).json(err + "!");
+		return res.status(500).json(err);
 	}
-
 }
 
 const destroy = async(req, res) => {
@@ -101,8 +87,8 @@ const destroy = async(req, res) => {
 
 const update = async(req, res) => {
 	try{
+		validationResult(req).throw();
 		const {id} = req.params;
-
 		const [eventUpdated] = await Event.update(req.body, {
 			where: {id: id}
 		});
@@ -114,7 +100,7 @@ const update = async(req, res) => {
 
 		throw new Error('Event not found');
 	} catch(err) {
-		return res.status(500).json(err + "!");
+		return res.status(500).json(err);
 	}
 }
 

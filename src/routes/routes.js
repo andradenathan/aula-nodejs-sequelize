@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const validators = require('../config/validators');
 const UserController = require('../controllers/UserController');
 const EventController = require('../controllers/EventController');
 
@@ -19,8 +20,10 @@ router.get('/events/getMostRatedEvents/:id',
 router.get('/events/searchEventByTitle', EventController.searchEventByTitle);
 router.get('/events', EventController.index);
 router.get('/events/:id', EventController.show);
-router.post('/events', EventController.create);
-router.put('/events/:id', EventController.update);
+router.post('/events', validators.validateEvent('create'), 
+			EventController.create);
+router.put('/events/:id', validators.validateEvent('update'), 
+			EventController.update);
 router.delete('/events/:id', EventController.destroy)
 
 module.exports = router;
